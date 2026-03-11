@@ -1,0 +1,59 @@
+# SERVICE
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+
+spec:
+  type: ClusterIP
+
+  selector:
+    app: posts
+
+  ports:
+    - name: posts
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+
+---
+# DEPLOYMENT
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-pod
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: posts
+
+  template:
+    metadata:
+      labels:
+        app: posts
+
+    spec:
+      containers:
+        - name: posts-pod
+          image: posts
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+---
+# POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: posts-pod
+  labels:
+    app: posts
+spec:
+  containers:
+    - name: posts-pod
+      image: posts
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 4000
