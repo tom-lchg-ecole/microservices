@@ -1,3 +1,8 @@
+# Réseau partagé avec alias pour que le code (noms *-srv) fonctionne comme en K8s
+networks:
+  app-net:
+    driver: bridge
+
 services:
   client:
     build:
@@ -6,6 +11,10 @@ services:
     container_name: client
     ports:
       - 3000:3000
+    networks:
+      app-net:
+        aliases:
+          - client-srv
 
   comments:
     build:
@@ -14,6 +23,10 @@ services:
     container_name: comments
     ports:
       - 4001:4001
+    networks:
+      app-net:
+        aliases:
+          - comments-srv
 
   event-bus:
     build:
@@ -22,6 +35,10 @@ services:
     container_name: event-bus
     ports:
       - 4005:4005
+    networks:
+      app-net:
+        aliases:
+          - event-bus-srv
 
   moderation:
     build:
@@ -30,6 +47,10 @@ services:
     container_name: moderation
     ports:
       - 4003:4003
+    networks:
+      app-net:
+        aliases:
+          - moderation-srv
 
   posts:
     build:
@@ -38,6 +59,10 @@ services:
     container_name: posts
     ports:
       - 4000:4000
+    networks:
+      app-net:
+        aliases:
+          - posts-srv
 
   query:
     build:
@@ -46,3 +71,7 @@ services:
     container_name: query
     ports:
       - 4002:4002
+    networks:
+      app-net:
+        aliases:
+          - query-srv

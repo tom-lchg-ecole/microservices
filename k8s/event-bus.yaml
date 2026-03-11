@@ -1,0 +1,58 @@
+# Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-depl
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: event-bus
+
+  template:
+    metadata:
+      labels:
+        app: event-bus
+
+    spec:
+      containers:
+        - name: event-bus
+          image: microservices-event-bus
+          ports:
+            - containerPort: 4005
+
+---
+# Service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-srv
+
+spec:
+  type: ClusterIP
+  selector:
+    app: event-bus
+
+  ports:
+    - port: 4005
+      targetPort: 4005
+
+---
+# POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-bus-pod
+  labels:
+    app: event-bus
+spec:
+  containers:
+    - name: event-bus-pod
+      image: microservices-event-bus
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 4005

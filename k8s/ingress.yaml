@@ -4,17 +4,75 @@ metadata:
   name: microservices-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  # Pas de rewrite-target : les chemins sont transmis tels quels aux backends
   namespace: default
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /posts
+          # Ordre important : les chemins les plus spécifiques en premier
+          # Commentaires d'un post -> comments
+          - path: /posts/.*/comments
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: comments-srv
+                port:
+                  number: 4001
+          # Création de post -> posts
+          - path: /posts/create
             pathType: Prefix
             backend:
               service:
                 name: posts-srv
                 port:
                   number: 4000
+          # Liste des posts (GET /posts) -> query
+          - path: /posts
+            pathType: Prefix
+            backend:
+              service:
+                name: query-srv
+                port:
+                  number: 4002
+
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000
+
+          - path: /comments
+            pathType: Prefix
+            backend:
+              service:
+                name: comments-srv
+                port:
+                  number: 4001
+
+          - path: /query
+            pathType: Prefix
+            backend:
+              service:
+                name: query-srv
+                port:
+                  number: 4002
+
+          - path: /moderation
+            pathType: Prefix
+            backend:
+              service:
+                name: moderation-srv
+                port:
+                  number: 4003
+
+          - path: /events
+            pathType: Prefix
+            backend:
+              service:
+                name: event-bus-srv
+                port:
+                  number: 4005
