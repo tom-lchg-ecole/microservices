@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: posts-pod
 
 spec:
   replicas: 1
@@ -17,7 +17,8 @@ spec:
 
     spec:
       containers:
-        - name: posts
-          image: myrepo/posts
+        - name: posts-pod
+          image: posts
+          imagePullPolicy: Never
           ports:
             - containerPort: 4000
