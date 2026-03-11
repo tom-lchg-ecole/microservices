@@ -1,0 +1,48 @@
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - 3000:3000
+
+  comments:
+    build:
+      context: ./comments
+      dockerfile: Dockerfile
+    container_name: comments
+    ports:
+      - 4001:4001
+
+  event-bus:
+    build:
+      context: ./event-bus
+      dockerfile: Dockerfile
+    container_name: event-bus
+    ports:
+      - 4005:4005
+
+  moderation:
+    build:
+      context: ./moderation
+      dockerfile: Dockerfile
+    container_name: moderation
+    ports:
+      - 4003:4003
+
+  posts:
+    build:
+      context: ./posts
+      dockerfile: Dockerfile
+    container_name: posts
+    ports:
+      - 4000:4000
+
+  query:
+    build:
+      context: ./query
+      dockerfile: Dockerfile
+    container_name: query
+    ports:
+      - 4002:4002
