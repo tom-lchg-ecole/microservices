@@ -1,77 +1,54 @@
-# Réseau partagé avec alias pour que le code (noms *-srv) fonctionne comme en K8s
-networks:
-  app-net:
-    driver: bridge
-
 services:
   client:
+    image: microservices-client:v1
     build:
       context: ./client
       dockerfile: Dockerfile
     container_name: client
     ports:
       - 3000:3000
-    networks:
-      app-net:
-        aliases:
-          - client-srv
 
   comments:
+    image: microservices-comments:v1
     build:
       context: ./comments
       dockerfile: Dockerfile
     container_name: comments
     ports:
       - 4001:4001
-    networks:
-      app-net:
-        aliases:
-          - comments-srv
 
   event-bus:
+    image: microservices-event-bus:v1
     build:
       context: ./event-bus
       dockerfile: Dockerfile
     container_name: event-bus
     ports:
       - 4005:4005
-    networks:
-      app-net:
-        aliases:
-          - event-bus-srv
 
   moderation:
+    image: microservices-moderation:v1
     build:
       context: ./moderation
       dockerfile: Dockerfile
     container_name: moderation
     ports:
       - 4003:4003
-    networks:
-      app-net:
-        aliases:
-          - moderation-srv
 
   posts:
+    image: microservices-posts:v1
     build:
       context: ./posts
       dockerfile: Dockerfile
     container_name: posts
     ports:
       - 4000:4000
-    networks:
-      app-net:
-        aliases:
-          - posts-srv
 
   query:
+    image: microservices-query:v1
     build:
       context: ./query
       dockerfile: Dockerfile
     container_name: query
     ports:
       - 4002:4002
-    networks:
-      app-net:
-        aliases:
-          - query-srv
