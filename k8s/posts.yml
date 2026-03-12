@@ -38,22 +38,7 @@ spec:
     spec:
       containers:
         - name: posts-pod
-          image: microservices-posts
+          image: microservices-posts:v1
           imagePullPolicy: Never
           ports:
             - containerPort: 4000
----
-# POD
-apiVersion: v1
-kind: Pod
-metadata:
-  name: posts-pod
-  labels:
-    app: posts
-spec:
-  containers:
-    - name: posts-pod
-      image: microservices-posts
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 4000

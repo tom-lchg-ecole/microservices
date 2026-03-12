@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: query-deploy
-          image: microservices-query
+          image: microservices-query:v1
           imagePullPolicy: Never
           ports:
             - containerPort: 4002
@@ -37,19 +37,3 @@ spec:
   ports:
     - port: 4002
       targetPort: 4002
-
----
-# POD
-apiVersion: v1
-kind: Pod
-metadata:
-  name: query-pod
-  labels:
-    app: query
-spec:
-  containers:
-    - name: query-pod
-      image: microservices-query
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 4002

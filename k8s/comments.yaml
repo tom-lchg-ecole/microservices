@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: comments
-          image: microservices-comments
+          image: microservices-comments:v1
           imagePullPolicy: Never
           ports:
             - containerPort: 4001
@@ -41,19 +41,3 @@ spec:
   ports:
     - port: 4001
       targetPort: 4001
-
----
-# POD
-apiVersion: v1
-kind: Pod
-metadata:
-  name: comments-pod
-  labels:
-    app: comments
-spec:
-  containers:
-    - name: comments-pod
-      image: microservices-comments
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 4001

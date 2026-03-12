@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: moderation
+          image: microservices-moderation:v1
           ports:
             - containerPort: 4003
 
@@ -40,19 +40,3 @@ spec:
   ports:
     - port: 4003
       targetPort: 4003
-
----
-# POD
-apiVersion: v1
-kind: Pod
-metadata:
-  name: moderation-pod
-  labels:
-    app: moderation
-spec:
-  containers:
-    - name: moderation-pod
-      image: moderation
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 4003

@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: event-bus
-          image: microservices-event-bus
+          image: microservices-event-bus:v1
           ports:
             - containerPort: 4005
 
@@ -40,19 +40,3 @@ spec:
   ports:
     - port: 4005
       targetPort: 4005
-
----
-# POD
-apiVersion: v1
-kind: Pod
-metadata:
-  name: event-bus-pod
-  labels:
-    app: event-bus
-spec:
-  containers:
-    - name: event-bus-pod
-      image: microservices-event-bus
-      imagePullPolicy: Never
-      ports:
-        - containerPort: 4005
